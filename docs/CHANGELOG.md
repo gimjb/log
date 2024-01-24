@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+Due to using `util.inspect` instead of `JSON.stringify`, the output of the log
+functions has changed:
+
+- Log single quotes instead of double quotes in array and object values.
+- No longer quotes property names in objects.
+- Does not always include newlines in arrays and objects.
+
+### Fixed
+
+- Logging circular references no longer causes a crash.
+
 ## [0.1.0]: 2024-01-24Z
 
 ### Added
