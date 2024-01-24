@@ -1,4 +1,5 @@
 import fs from 'fs/promises'
+import { inspect } from 'util'
 
 let logPath = ''
 
@@ -31,7 +32,7 @@ async function log (message: unknown, type: LogType, dry = false): Promise<strin
       processedMessage += message
       break
     case 'object':
-      processedMessage += JSON.stringify(message, null, 2)
+      processedMessage += inspect(message)
       break
     case 'undefined':
       processedMessage += 'undefined'

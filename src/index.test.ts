@@ -26,19 +26,23 @@ function testLogMethod (methodName: 'info' | 'warn' | 'error'): void {
     it('should log an object', async () => {
       const output = await logMethod({ a: 'b' }, true)
       expect(output).toMatch(
-        new RegExp(
-          patternPrefix + `\\{\\n${paddingPattern}  "a": "b"\\n${paddingPattern}\\}$`
-        )
+        new RegExp(patternPrefix + /\{ a: 'b' \}$/.source)
+      )
+    })
+
+    it('should log a circular object', async () => {
+      const circular: any = {}
+      circular.a = circular
+      const output = await logMethod(circular, true)
+      expect(output).toMatch(
+        new RegExp(patternPrefix + /<ref \*1> \{ a: \[Circular \*1] \}$/.source)
       )
     })
 
     it('should log an array', async () => {
       const output = await logMethod(['a', 'b'], true)
       expect(output).toMatch(
-        new RegExp(
-          patternPrefix +
-            `\\[\\n${paddingPattern}  "a",\\n${paddingPattern}  "b"\\n${paddingPattern}\\]$`
-        )
+        new RegExp(patternPrefix + /\[ 'a', 'b' \]$/.source)
       )
     })
 
