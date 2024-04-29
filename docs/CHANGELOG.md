@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1]: 2024-04-29Z
+
+### Fixed
+
+- Fix crash when `log.config.mode` is set to `LogMode.Json` and the log file
+  does not exist.
+- Use correct hyphen in `log.config.path` default value (`-` instead of `–`).
+
 ## [0.2.0]: 2024-04-29Z
 
 ### Added
@@ -73,6 +81,7 @@ functions has changed:
 - `log.error` function to log an error message.
 
 [unreleased]: https://github.com/gimjb/log/compare/latest...HEAD
+[0.2.1]: https://github.com/gimjb/log/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/gimjb/log/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/gimjb/log/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/gimjb/log/compare/v0.0.0...v0.1.0

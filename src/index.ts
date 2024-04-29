@@ -72,7 +72,7 @@ const config: Config = {
         throw new Error(`Cannot determine log file extension from mode '${config.mode}'.`)
     }
 
-    return path.join(appRoot, `logs/log–${dateString}.${ext}`)
+    return path.join(appRoot, `logs/log-${dateString}.${ext}`)
   }
 }
 
@@ -145,12 +145,11 @@ async function logJson (logValues: LogValues, logPath: string, dry: boolean): Pr
   const output = '  ' + JSON.stringify(logValues, null, 2).replace(/\n/g, '\n  ')
 
   if (!dry) {
-    const content = await fsPromises.readFile(logPath, { encoding: 'utf-8' })
-
-    if (content === '') {
-      await fsPromises.writeFile(logPath, `[\n${output}\n]\n`)
-    } else {
+    try {
+      const content = await fsPromises.readFile(logPath, { encoding: 'utf-8' })
       await fsPromises.writeFile(logPath, content.replace(/\s*]\s*$/, ',\n') + output + '\n]')
+    } catch (err) {
+      await fsPromises.writeFile(logPath, `[\n${output}\n]\n`)
     }
   }
 
