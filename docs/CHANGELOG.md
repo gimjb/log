@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0]: 2024-04-29Z
+
+### Added
+
+- `log.config` property to set the configuration.
+  - A default configuration for `log.config.path` ([#3]): a function that returns
+    a path in the format `<project root>/logs/log-<YYYY-MM-DD>.<file extension>`.
+  - `log.config.mode` ([#5]) to set the mode or format of the log methods:
+    - `log.config.mode = LogMode.ReturnOnly` to return the log data without
+      logging it to a file.
+    - `log.config.mode = LogMode.Json` (default) to log the data to a file in
+      JSON format.
+    - `log.config.mode = LogMode.PlainText` to log the data to a file in plain
+      text format.
+    - `log.config.mode = LogMode.Yaml` to log the data to a file in YAML format.
+  - `includeStack` ([#4]) option to include the stack trace in the log data.
+    Default: `true`.
+
+### Changed
+
+- [BREAKING] `log.path` has been moved to `log.config.path`
+- The type of `log.config.path` has been changed to `string | (() => string)`.
+- [BREAKING] `log.info`, `log.warn`, and `log.error` now return `LogValues`
+  instead of a `string`:
+  ```ts
+  interface LogValues {
+    type: LogType
+    message: string
+    timestamp: string
+    stack?: string[]
+  }
+  ```
+
+### Removed
+
+- No longer logs to the console.
+
+[#3]: https://github.com/gimjb/log/issues/3
+[#4]: https://github.com/gimjb/log/issues/4
+[#5]: https://github.com/gimjb/log/issues/5
+
 ## [0.1.1]: 2024-01-24Z
 
 ### Changed
@@ -32,5 +73,6 @@ functions has changed:
 - `log.error` function to log an error message.
 
 [unreleased]: https://github.com/gimjb/log/compare/latest...HEAD
-[0.1.0]: https://github.com/gimjb/log/compare/v0.1.0...v0.1.1
+[0.2.0]: https://github.com/gimjb/log/compare/v0.1.1...v0.2.0
+[0.1.1]: https://github.com/gimjb/log/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/gimjb/log/compare/v0.0.0...v0.1.0
