@@ -1,4 +1,4 @@
-# `gimjb/log`
+# `@gimjb/log`
 
 Log to console and file.
 
@@ -12,16 +12,17 @@ Log to console and file.
 ## Install
 
 ```bash
-npm install gimjb/log
+npm install @gimjb/log
 ```
 
 ## Usage
 
 ```ts
 import path from 'path';
-import log from 'gimjb/log';
+import log from '@gimjb/log';
 
-log.path = path.join(__dirname, 'log.txt');
+// Note: Make sure the directory in which the log file will be created exists.
+// The default directory is `<project root>/logs`.
 
 log.info('Hello world!');
 log.warn('Hello world!');
